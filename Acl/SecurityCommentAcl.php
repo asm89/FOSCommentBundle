@@ -153,7 +153,14 @@ class SecurityCommentAcl implements CommentAclInterface
     public function setDefaultAcl(CommentInterface $comment)
     {
         $objectIdentity = $this->objectRetrieval->getObjectIdentity($comment);
-        $acl = $this->aclProvider->createAcl($objectIdentity);
+
+        try {
+            $acl = $this->aclProvider->createAcl($objectIdentity);
+        } catch (AclAlreadyExistsException $exists) {
+            // ACL already exists, so do not create/update ACL
+
+            return;
+        }
 
         if ($comment instanceof SignedCommentInterface &&
             null !== $comment->getAuthor()) {

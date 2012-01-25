@@ -119,6 +119,10 @@ class AclCommentManager implements CommentManagerInterface
             throw new AccessDeniedException();
         }
 
+        if (!$this->commentAcl->canEdit($comment)) {
+            throw new AccessDeniedException();
+        }
+
         $this->realManager->saveComment($comment);
         $this->commentAcl->setDefaultAcl($comment);
     }
