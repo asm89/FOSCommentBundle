@@ -17,6 +17,10 @@ And the following code at a desired place in the template to load the comments:
 ```
 {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}
 ```
+> **Note:**
+> The id of the thread will be encoded in a url like `/../id/../`. If the id
+> contains special characters you should url encode it.
+
 
 That's the basic setup! For additional information and configuration check the ... section and the cookbook.
 
